@@ -20,7 +20,9 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
-CoreStack : An Objective C 2.0 interface to the Stack Exchange API. Also uses http://code.google.com/p/json-framework/ and http://github.com/gabriel/gh-unit/. 
+CoreStack : An Objective C 2.0 interface to the Stack Exchange API. Also uses
+http://code.google.com/p/json-framework/ and
+http://github.com/gabriel/gh-unit/. 
 
 OVERVIEW
 
@@ -44,7 +46,8 @@ in the API help at http://api.stackapps.com/1.0/help.
 USAGE:
 
 Link all the files outside of the Tests directory, along with the contents of
-the JSON folder with your application. Then just dive in - a typical usage
+the JSON folder with your application. Link against SystemConfiguration.framework.
+Then just dive in - a typical usage
 might be as follows:
 
 0. Change the definition CS_API_KEY in CoreStackConstants to match your API key
