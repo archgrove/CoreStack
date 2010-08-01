@@ -51,9 +51,10 @@ Then just dive in - a typical usage
 might be as follows:
 
 0. Change the definition CS_API_KEY in CoreStackConstants to match your API key
-1. Create a CSSiteDescriptor via initWithName:andEndPoint:
+1. Create a CSSiteDescriptor via initWithName:andEndPoint:. One such name/end
+   point combination might be @"StackOverflow" and @"http://api.stackoverflow.com"
 2. Pass this descriptor to CSSite via initWithDescriptor
-3. Write a class conforming to CSObjectRequestDelegate
+3. Write a class conforming to CSObjectRequestDelegate (defined in CSSite.h)
 4. Obtain request parameters for user 1200 with
    [CSUser requestParamsForObjectWithIdentifier:1200]
 5. Pass the parameters and your delegate to your site instance via 
@@ -70,6 +71,11 @@ might be as follows:
 A more involved usage will create a CSAuth instance, and become its delegate
 to receive notification of all the Stack Exchange sites. You can then use these
 sites to built CSSite instances.
+
+You can see a "real life" usage example at 
+http://sixtoeightapp.com/code/SiteStatisticsView.m / h . It shows how, given
+a CSSite object, you can use it to request data, receive it, then serialise
+and deserialise it.
 
 NOTES:
 
