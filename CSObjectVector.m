@@ -24,6 +24,8 @@
  
  */
 
+#import <objc/runtime.h>
+
 #import "CoreStackConstants.h"
 #import "CSObjectVector.h"
 #import "CSSite.h"
@@ -52,7 +54,9 @@
     
     if (self)
     {
-        objectClass = *((Class *)[aDecoder decodeBytesForKey:@"class" returnedLength:nil]);
+        NSString *classString = [aDecoder decodeObjectForKey:@"class"];        
+        objectClass = objc_getClass([classString cStringUsingEncoding:NSASCIIStringEncoding]);
+        
         vectorKey = [[aDecoder decodeObjectForKey:@"vectorKey"] retain];
         contents = [[aDecoder decodeObjectForKey:@"contents"] retain];
     }
@@ -100,7 +104,10 @@
 
 - (void)encodeWithCoder:(NSCoder *)aCoder
 {
-    [aCoder encodeBytes:(const void *)&objectClass length:sizeof(Class) forKey:@"class"];
+    const char *clsName = class_getName(objectClass);
+    NSString *clsString = [NSString stringWithCString:clsName encoding:NSASCIIStringEncoding];
+    [aCoder encodeObject:clsString forKey:@"class"];
+    
     [aCoder encodeObject:vectorKey forKey:@"vectorKey"];
     [aCoder encodeObject:contents forKey:@"contents"];   
 }

@@ -23,6 +23,9 @@
  THE SOFTWARE.
  
  */
+
+#import <objc/runtime.h>
+
 #import "CSRequestParams.h"
 
 
@@ -76,7 +79,9 @@
         rawURL = [[aDecoder decodeObjectForKey:@"rawURL"] retain];
         urlFragment = [[aDecoder decodeObjectForKey:@"rawURL"] retain];
         responseVectorKey = [[aDecoder decodeObjectForKey:@"responseVectorKey"] retain];
-        responseType = *((Class*)[aDecoder decodeBytesForKey:@"responseType" returnedLength:nil]);
+        
+        NSString *respString = [aDecoder decodeObjectForKey:@"responseType"];        
+        responseType = objc_getClass([respString cStringUsingEncoding:NSASCIIStringEncoding]);
         params = [[aDecoder decodeObjectForKey:@"params"] retain];
         
         pageSize = [aDecoder decodeIntForKey:@"pageSize"];
@@ -103,7 +108,9 @@
     [aCoder encodeObject:responseVectorKey forKey:@"responseVectorKey"];
     [aCoder encodeObject:params forKey:@"params"];
     
-    [aCoder encodeBytes:(void*)(&responseType) length:sizeof(Class) forKey:@"responseType"];
+    const char *clsName = class_getName(responseType);
+    NSString *clsString = [NSString stringWithCString:clsName encoding:NSASCIIStringEncoding];
+    [aCoder encodeObject:clsString forKey:@"responseType"];
     
     [aCoder encodeInt:pageSize forKey:@"pageSize"];
     [aCoder encodeInt:pageNumber forKey:@"pageNumber"];
