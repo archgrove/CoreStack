@@ -37,6 +37,8 @@
     Class responseType;
 }
 
++ (NSString*)sortOrderToSortString:(enum CSQuestionSortOrder)sortOrder;
+
 @property int pageSize;
 @property int pageNumber;
 @property (readonly) NSString *responseVectorKey;

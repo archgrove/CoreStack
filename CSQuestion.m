@@ -80,37 +80,16 @@
     return [[[CSRequestParams alloc] initWithRawURL:[NSString stringWithFormat:@"/users/%i/favorites", userID] andResponseVectorKey:@"questions" andType:[CSQuestion class]] autorelease];
 }
 
++ (CSRequestParams*)requestParamsForQuestions
+{
+    CSRequestParams *reqParams = [[[CSRequestParams alloc] initWithURLFragment:@"/questions" andResponseVectorKey:@"questions" andType:[CSQuestion class]] autorelease];
+        
+    return reqParams;
+}
+
 + (CSRequestParams*)requestParamsForQuestionsWithSortOrder:(enum CSQuestionSortOrder)sortOrder
 {
-    NSString *sortString;
-    
-    switch (sortOrder)
-    {
-        case CSQuestionSortByActivity:
-            sortString = @"activity";
-            break;
-        case CSQuestionSortByVotes:
-            sortString = @"votes";
-            break;
-        case CSQuestionSortByCreation:
-            sortString = @"creation";
-            break;
-        case CSQuestionSortByFeatured:
-            sortString = @"featured";
-            break;
-        case CSQuestionSortByHot:
-            sortString = @"hot";
-            break;
-        case CSQuestionSortByWeek:
-            sortString = @"week";
-            break;
-        case CSQuestionSortByMonth:
-            sortString = @"month";
-            break;
-        default:
-            assert(false);
-    }
-    
+    NSString *sortString = [CSRequestParams sortOrderToSortString:sortOrder];
     CSRequestParams *reqParams = [[[CSRequestParams alloc] initWithURLFragment:@"/questions" andResponseVectorKey:@"questions" andType:[CSQuestion class]] autorelease];
     
     [reqParams setParam:@"sort" toValue:sortString];

@@ -36,6 +36,20 @@
 @synthesize fulfills_required; // Not optional
 @synthesize user_id; // Optional
 
++ (CSRequestParams*)requestParamsForAllTags
+{
+    return [[[CSRequestParams alloc] initWithURLFragment:@"/tags" andResponseVectorKey:@"tags" andType:[CSTag class]] autorelease];
+}
+
++ (CSRequestParams*)requestParamsForTagsMatching:(NSString*)filter
+{
+    CSRequestParams *params = [[[CSRequestParams alloc] initWithURLFragment:@"/tags" andResponseVectorKey:@"tags" andType:[CSTag class]] autorelease];
+    
+    [params setParam:@"filter" toValue:filter];
+    
+    return params;
+}
+
 - (id)initWithCoder:(NSCoder *)decoder
 {
     self = [super init];

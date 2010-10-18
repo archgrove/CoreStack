@@ -91,7 +91,7 @@
         return FALSE;
     if (![json extract:@"question_id" intoInt:&question_id error:error])
         return FALSE;
-    if (![json extract:@"answer_comments_url" intoURL:&answer_comments_url error:error])
+    if (![json extract:@"answer_comments_url" intoString:&answer_comments_url error:error])
         return FALSE;
     
     return TRUE;

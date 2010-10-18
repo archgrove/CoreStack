@@ -30,12 +30,12 @@
 @interface CSAnswer : CSPost {
     BOOL accepted;
     int question_id;
-    NSURL *answer_comments_url;
+    NSString *answer_comments_url;
 }
 
 @property (readonly) BOOL accepted;
 @property (readonly) int question_id;
-@property (readonly) NSURL *answer_comments_url;
+@property (readonly) NSString *answer_comments_url;
 
 - (CSRequestParams*)requestParamsForComments;
 

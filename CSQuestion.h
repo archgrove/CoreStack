@@ -59,6 +59,7 @@ enum CSQuestionSortOrder
 }
 
 + (CSRequestParams*)requestParamsForUserFavorites:(int)userID;
++ (CSRequestParams*)requestParamsForQuestions;
 + (CSRequestParams*)requestParamsForQuestionsWithSortOrder:(enum CSQuestionSortOrder)sortOrder;
 
 @property (readonly) NSArray *tags;

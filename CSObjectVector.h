@@ -26,12 +26,24 @@
 
 #import <Foundation/Foundation.h>
 
-@interface CSObjectVector : NSObject<NSFastEnumeration> {
+#define CS_OBJECT_VECTOR_UNKNOWN_TOTAL -1
+#define CS_OBJECT_VECTOR_UNKNOWN_PAGE -1
+#define CS_OBJECT_VECTOR_UNKNOWN_PAGESIZE -1
+
+@interface CSObjectVector : NSObject<NSFastEnumeration, NSCoding> {
     Class objectClass;
     NSString *vectorKey;
     
     NSMutableArray *contents;
+    
+    NSInteger total;    
+    NSInteger page;    
+    NSInteger pageSize;
 }
+
+@property (readonly) NSInteger page;
+@property (readonly) NSInteger pageSize;
+@property (readonly) NSInteger total;
 
 - (id)initWithObjectClass:(Class)clss forVectorKey:(NSString*)key;
 - (id)initWithObjectVector:(CSObjectVector*)other throughFilterObject:(id)filterObject withFilter:(SEL)filterSelector;

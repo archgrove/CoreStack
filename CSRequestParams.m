@@ -26,10 +26,34 @@
 
 #import <objc/runtime.h>
 
+#import "CSQuestion.h"
 #import "CSRequestParams.h"
 
-
 @implementation CSRequestParams
+
++ (NSString*)sortOrderToSortString:(enum CSQuestionSortOrder)sortOrder
+{
+    switch (sortOrder)
+    {
+        case CSQuestionSortByActivity:
+            return @"activity";
+        case CSQuestionSortByVotes:
+            return @"votes";
+        case CSQuestionSortByCreation:
+            return @"creation";
+        case CSQuestionSortByFeatured:
+            return @"featured";
+        case CSQuestionSortByHot:
+            return @"hot";
+        case CSQuestionSortByWeek:
+            return @"week";
+        case CSQuestionSortByMonth:
+            return @"month";
+        default:
+            assert(false);
+    }
+    return nil;
+}
 
 @synthesize pageSize;
 @synthesize pageNumber;
@@ -77,7 +101,7 @@
     if (self)
     {
         rawURL = [[aDecoder decodeObjectForKey:@"rawURL"] retain];
-        urlFragment = [[aDecoder decodeObjectForKey:@"rawURL"] retain];
+        urlFragment = [[aDecoder decodeObjectForKey:@"urlFragment"] retain];
         responseVectorKey = [[aDecoder decodeObjectForKey:@"responseVectorKey"] retain];
         
         NSString *respString = [aDecoder decodeObjectForKey:@"responseType"];        

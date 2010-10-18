@@ -38,6 +38,9 @@
     int user_id; // Optional
 }
 
++ (CSRequestParams*)requestParamsForAllTags;
++ (CSRequestParams*)requestParamsForTagsMatching:(NSString*)filter;
+
 @property (readonly) NSString *name; // Not optional
 @property (readonly) int count; // Not optional
 @property (readonly) enum CSUserType restricted_to; // Optional

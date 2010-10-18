@@ -33,6 +33,10 @@
 
 @implementation CSObjectVector
 
+@synthesize page;
+@synthesize pageSize;
+@synthesize total;
+
 - (id)initWithObjectClass:(Class)clss forVectorKey:(NSString*)key
 {
     self = [super init];
@@ -41,6 +45,10 @@
     {
         objectClass = clss;
         vectorKey = [key retain];
+
+        total = CS_OBJECT_VECTOR_UNKNOWN_TOTAL;
+        page = CS_OBJECT_VECTOR_UNKNOWN_PAGE;        
+        pageSize = CS_OBJECT_VECTOR_UNKNOWN_PAGESIZE;
         
         contents = [[NSMutableArray alloc] init];
     }
@@ -59,6 +67,10 @@
         
         vectorKey = [[aDecoder decodeObjectForKey:@"vectorKey"] retain];
         contents = [[aDecoder decodeObjectForKey:@"contents"] retain];
+        
+        total = [aDecoder decodeIntForKey:@"total"];        
+        page = [aDecoder decodeIntForKey:@"page"];
+        pageSize = [aDecoder decodeIntForKey:@"pageSize"];
     }
     
     return self;
@@ -73,6 +85,10 @@
         objectClass = other->objectClass;
         vectorKey = [other->vectorKey retain];
         contents = [[NSMutableArray alloc] init];
+        
+        total = other->total;
+        page = other->page;
+        pageSize = other->pageSize;
         
         for (id obj in other->contents)
         {
@@ -89,7 +105,13 @@
     self = [super init];
     
     if (self)
+    {
         contents = [[NSMutableArray alloc] init];
+        
+        total = CS_OBJECT_VECTOR_UNKNOWN_TOTAL;
+        page = CS_OBJECT_VECTOR_UNKNOWN_PAGE;        
+        pageSize = CS_OBJECT_VECTOR_UNKNOWN_PAGESIZE;
+    }
     
     return self;
 }
@@ -109,13 +131,24 @@
     [aCoder encodeObject:clsString forKey:@"class"];
     
     [aCoder encodeObject:vectorKey forKey:@"vectorKey"];
-    [aCoder encodeObject:contents forKey:@"contents"];   
+    [aCoder encodeObject:contents forKey:@"contents"];
+    
+    [aCoder encodeInt:total forKey:@"total"];
+    [aCoder encodeInt:page forKey:@"page"];
+    [aCoder encodeInt:pageSize forKey:@"pagesize"];
 }
 
 - (BOOL)fillWithJSON:(id)json error:(NSError**)error
 {
     [contents removeAllObjects];
     
+    if ([json objectForKey:@"total"] != nil)
+        total = [[json objectForKey:@"total"] intValue];
+    if ([json objectForKey:@"page"] != nil)
+        page = [[json objectForKey:@"page"] intValue];
+    if ([json objectForKey:@"pageSize"] != nil) 
+        pageSize = [[json objectForKey:@"pageSize"] intValue];
+
     NSArray *jsonElements = [json objectForKey:vectorKey];
     
     if (!jsonElements)
@@ -171,5 +204,11 @@
 {
     [contents sortUsingDescriptors:descs];
 }
+
+- (void)appendObjectVector:(CSObjectVector*)objVector
+{
+    [contents addObjectsFromArray:objVector->contents];
+}
+
 
 @end
