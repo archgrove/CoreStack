@@ -98,7 +98,9 @@
     [json extract:@"description" intoString:&description];
     [json extract:@"detail" intoString:&detail];
     [json extract:@"action" intoString:&action];
-    
+	if (![json extract:@"creation_date" intoDate:&creation_date error:error])
+        return FALSE;
+	
     NSString *timelineTypeStr = [json objectForKey:@"timeline_type"];
     if ([timelineTypeStr isEqualToString:@"comment"])
         timeline_type = CSTimelineTypeComment;
