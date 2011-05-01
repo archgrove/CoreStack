@@ -37,8 +37,10 @@
     if (![self networkReachable])
         return HTTP_NO_NETWORK;
     
-#ifndef TESTING
+#ifdef TESTING
+	#if TARGET_OS_IPHONE
     [UIApplication sharedApplication].networkActivityIndicatorVisible = YES;
+	#endif
 #endif
     
     // Timeout in 20 seconds
@@ -47,8 +49,10 @@
     
     *data = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&urlResponse error:error];
     
-#ifndef TESTING
-    [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+#ifdef TESTING
+	#if TARGET_OS_IPHONE
+		[UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
+	#endif
 #endif
     
     if (data)
