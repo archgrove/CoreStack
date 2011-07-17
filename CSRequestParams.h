@@ -26,6 +26,16 @@
 
 #import <Foundation/Foundation.h>
 
+enum CSQuestionSortOrder
+{
+    CSQuestionSortByActivity,
+    CSQuestionSortByVotes,
+    CSQuestionSortByCreation,
+    CSQuestionSortByFeatured,
+    CSQuestionSortByHot,
+    CSQuestionSortByWeek,
+    CSQuestionSortByMonth
+};
 
 @interface CSRequestParams : NSObject<NSCoding> {
     NSString *rawURL;

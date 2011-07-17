@@ -32,6 +32,7 @@
 #import "CSRequestToken.h"
 #import "CSRequestParams.h"
 #import "CSObjectVector.h"
+#import "CSAmalgamatedObjectVector.h"
 
 #import "CSSiteDescriptor.h"
 #import "CSPost.h"

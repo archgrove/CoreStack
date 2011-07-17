@@ -30,17 +30,6 @@
 #import "CSPostMigrationInfo.h"
 #import "CSObjectVector.h"
 
-enum CSQuestionSortOrder
-{
-    CSQuestionSortByActivity,
-    CSQuestionSortByVotes,
-    CSQuestionSortByCreation,
-    CSQuestionSortByFeatured,
-    CSQuestionSortByHot,
-    CSQuestionSortByWeek,
-    CSQuestionSortByMonth
-};
-
 @interface CSQuestion : CSPost {
     NSArray *tags;
     int answer_count;

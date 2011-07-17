@@ -27,7 +27,6 @@
 #import <objc/runtime.h>
 
 #import "CSQuestion.h"
-#import "CSRequestParams.h"
 
 @implementation CSRequestParams
 

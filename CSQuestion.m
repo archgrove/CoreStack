@@ -32,6 +32,8 @@
 #import "CSComment.h"
 #import "CSTimelineEntry.h"
 
+#import "CSRequestParams.h"
+
 @implementation CSQuestion
 
 @synthesize tags;
